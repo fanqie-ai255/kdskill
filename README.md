@@ -12,13 +12,13 @@
 
 ### 1. 安装
 
-将此仓库克隆到你的 Claude Code skills 目录：
+将此仓库下载到你的 Claude Code skills 目录：
 
 ```bash
-# 方式一：直接克隆到 skills 目录
+# 方式一：直接下载到 skills 目录
 git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git ~/.claude/skills/distill/
 
-# 方式二：克隆到任意位置，在 CLAUDE.md 中引用
+# 方式二：下载到任意位置，在 CLAUDE.md 中引用
 git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git
 ```
 
