@@ -1,0 +1,10 @@
+# 个人状态文件（每个使用者自己生成）
+.distill-state.md
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Obsidian
+.obsidian/
