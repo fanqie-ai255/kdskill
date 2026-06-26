@@ -1,10 +1,10 @@
-# 知识博主蒸馏工具包
+﻿# 知识博主蒸馏工具包
 
 > 把一位知识博主的全部视频内容，系统蒸馏为可检索、可复盘、可拿来就用的个人知识库。
 
 ## 这是什么？
 
-一套 Claude Code Skill，帮你把知识博主的视频内容（SRT 字幕）自动蒸馏为结构化知识库。从单条视频的道法术提炼，到跨分类的全局归纳，到最后写入检索规则——全流程覆盖。
+一套 Claude Code Skill，帮你把知识博主的视频内容（SRT 字幕）自动蒸馏为结构化知识库。从单条视频的道法术提炼，到钩子金句资产库，到跨分类的全局归纳，再到最后写入检索规则——全流程覆盖。
 
 **你只需要准备 SRT 字幕文件，剩下的 AI 带着你做。**
 
@@ -16,10 +16,10 @@
 
 ```bash
 # 方式一：直接下载到 skills 目录
-git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git ~/.claude/skills/distill/
+git clone https://github.com/fanqie-ai255/kdskill.git ~/.claude/skills/distill/
 
 # 方式二：下载到任意位置，在 CLAUDE.md 中引用
-git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git
+git clone https://github.com/fanqie-ai255/kdskill.git
 ```
 
 ### 2. 准备素材
@@ -36,10 +36,10 @@ git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git
 
 或直接说"帮我蒸馏"，AI 会引导你走完全流程。
 
-## 完整流程（8 步）
+## 完整流程（9 步）
 
 ```
-准备素材 → 内容分类 → 设计模板 → 批量蒸馏 → 综合汇总(三阶段) → 写入检索规则
+准备素材 → 内容分类 → 设计模板 → 批量蒸馏 → 钩子金句资产层 → 综合汇总(三阶段) → 写入检索规则
 ```
 
 | 步骤 | 做什么 | 谁来做 |
@@ -48,6 +48,7 @@ git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git
 | 2 | 按主题分类，每文件夹 ≤30 条 | 🤖 AI 建议 + 👤 确认 |
 | 3 | 用模板跑通 1-2 条，确认样式后冻结 | 🤖 AI 执行 + 👤 确认 |
 | 4 | 多窗并行逐批蒸馏 | 👤 发指令 + 🤖 执行 |
+| 4.5 | 先样本、再用真实文案验证、最后生成钩子金句资产库 | 🤖 AI 执行 + 👤 确认 |
 | 5-7 | 三阶段综合汇总 | 👤 发指令 + 🤖 执行 |
 | 8 | 写入 CLAUDE.md 检索规则 | 🤖 自动 |
 
@@ -57,8 +58,15 @@ git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git
 你的知识库/目标博主/
 ├── 00原文件/                          ← SRT 字幕原文
 ├── 01学习方法/ ~ 09其他/               ← 单条蒸馏 .md（每条含 7 栏目分析）
-├── 01学习方法-深度汇总.md              ← 分类级检索入口（道法术 + 金句 + 选题）
+├── 01学习方法-深度汇总.md              ← 分类级检索入口（道法术 + 钩子 + 金句 + 选题）
 ├── ...（每个分类一份）
+├── 钩子金句资产库/
+│   ├── hooks.jsonl                    ← 可检索钩子库
+│   ├── golden_lines.jsonl             ← 可检索金句库
+│   ├── opening_moves.jsonl            ← 开头动作库
+│   ├── ending_moves.jsonl             ← 结尾动作库
+│   ├── pain_points.jsonl              ← 痛点词典
+│   └── 知识博主-钩子金句资产索引.md       ← 日常创作检索入口
 ├── 知识博主-道法术完整版.md            ← 跨分类顶层归并
 ├── 知识博主-视频结构完整图谱.md         ← 钩子/结构/金句/结尾统计规律
 ├── 知识博主-内容策略总览.md            ← 内容矩阵 + 进化史 + 变现路径
@@ -70,7 +78,7 @@ git clone https://github.com/YOUR_USERNAME/knowledge-distiller.git
 ## 文件结构
 
 ```
-knowledge-distiller/
+kdskill/
 ├── SKILL.md                                    ← AI 入口文件（Claude Code Skill）
 ├── README.md                                   ← 你在看的这个
 ├── LICENSE
@@ -78,6 +86,7 @@ knowledge-distiller/
 ├── README-使用说明.md                           ← 详细操作手册
 ├── 知识博主-单条视频蒸馏模板.md                  ← 7 栏目分析模板 + 完整提示词
 ├── 知识博主-批量蒸馏开工指南.md                  ← 多窗并行蒸馏操作手册
+├── 知识博主-钩子金句资产提取指南.md               ← 钩子库/金句库提取与验证流程
 ├── 知识博主-内容蒸馏与视频拆解-提示词库.md        ← 完整提示词体系
 ├── 知识博主-综合汇总-第一阶段.md                 ← 分类深度汇总开工文件
 ├── 知识博主-综合汇总-第二阶段.md                 ← 跨分类综合开工文件
@@ -103,12 +112,13 @@ knowledge-distiller/
 - 深入研究一位知识博主的方法论
 - 为自己的内容创作建立参考框架
 - 把"看了就忘"的视频变成可检索的知识资产
-- 学习博主的视频结构/钩子/金句规律
+- 学习博主的视频结构/钩子/金句规律，并沉淀为写文案时可检索的资产库
 
 ## 技术约束
 
 - **素材格式**：SRT 纯文本字幕（视频导出工具通用格式）
 - **批次上限**：每批 ≤30 条，确保 AI 上下文不截断
+- **钩子金句资产层**：先抽 20 条样本，再用真实文案验证检索合理性，确认后才全量生成
 - **运行环境**：Claude Code（需要能读取本地文件系统）
 - **分类灵活**：分类数量和名称完全由素材决定，工具包不预设
 
