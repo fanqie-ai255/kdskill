@@ -16,7 +16,7 @@
 
 ```bash
 # 方式一：直接下载到 skills 目录
-git clone https://github.com/fanqie-ai255/kdskill.git ~/.claude/skills/distill/
+git clone https://github.com/fanqie-ai255/kdskill.git ~/.claude/skills/kdskill/
 
 # 方式二：下载到任意位置，在 CLAUDE.md 中引用
 git clone https://github.com/fanqie-ai255/kdskill.git
@@ -31,7 +31,7 @@ git clone https://github.com/fanqie-ai255/kdskill.git
 在 Claude Code 中输入：
 
 ```
-/distill
+/kdskill
 ```
 
 或直接说"帮我蒸馏"，AI 会引导你走完全流程。
@@ -139,3 +139,4 @@ kdskill/
 ## License
 
 MIT
+
